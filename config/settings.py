@@ -60,12 +60,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # БЗ PostgresSQL
-        'NAME': os.getenv('NAME'),                           # импорт из .env
-        'USER': os.getenv('USER'),                           # импорт из .env
-        'PASSWORD': os.getenv('PASSWORD'),                   # импорт из .env
-        'HOST': os.getenv('HOST'),                           # импорт из .env
-        'PORT': os.getenv('PORT'),                           # импорт из .env
+        'ENGINE': 'django.db.backends.postgresql',  # БЗ PostgresSQL
+        'NAME': os.getenv('NAME'),                  # импорт из .env
+        'USER': os.getenv('USER'),                  # импорт из .env
+        'PASSWORD': os.getenv('PASSWORD'),          # импорт из .env
+        'HOST': os.getenv('HOST'),                  # импорт из .env
+        'PORT': os.getenv('PORT'),                  # импорт из .env
     }
 }
 
