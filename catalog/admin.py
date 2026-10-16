@@ -1,5 +1,5 @@
 from django.contrib import admin
-from catalog.models import Category, Product
+from catalog.models import Category, Product, ContactInfo
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -17,4 +17,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     # Настраиваем поиск по полям name и description
     search_fields = ('name', 'description')
+
+
+@admin.register(ContactInfo)
+class ContactInfoAdmin(admin.ModelAdmin):
+    """регистрация новой модели ContactInfo в панели администратора Django."""
+    list_display = ('phone', 'email', 'address')
 
