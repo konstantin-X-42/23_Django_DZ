@@ -106,3 +106,9 @@ MAILERS = {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
 }
+
+# Django-проект, физически хранит загруженные пользователями файлы (картинки, документы)
+# и по какому интернет-адресу к ним обращаться.
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
