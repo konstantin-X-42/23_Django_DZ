@@ -186,20 +186,15 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar">
-        <a href="21-2_home1.html" style="color: white; text-decoration: none; font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; display: block;">
+        <a href="/" style="color: white; text-decoration: none; font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; display: block;">
             МЕНЮ
         </a>
         <hr>
 
         <ul class="nav">
-            <!-- НАВИГАЦИЯ: Ссылки ведут на файлы страниц -->
-            <!-- Кнопка Главная (Активная) открывает страницу 1 -->
             <li><a href="/" class="nav-link active-custom"><i class="bi bi-house-door-fill me-2"></i>Главная</a></li>
-            <!-- Кнопка Категории открывает страницу 2 -->
             <li><a href="/categories/" class="nav-link nav-link-custom"><i class="bi bi-grid me-2"></i>Категории</a></li>
-            <!-- Кнопка Заказы открывает страницу 3 Каталог -->
             <li><a href="/orders/" class="nav-link nav-link-custom"><i class="bi bi-card-list me-2"></i>Заказы</a></li>
-            <!-- Кнопка Контакты открывает страницу 4 -->
             <li><a href="/contacts/" class="nav-link nav-link-custom"><i class="bi bi-telephone me-2"></i>Контакты</a></li>
         </ul>
 
@@ -207,7 +202,6 @@
 
         <!-- БЛОК ПОЛЬЗОВАТЕЛЯ -->
         <div style="position: relative;">
-            <!-- Всплывающая серая табличка (По умолчанию скрыта) -->
             <ul class="custom-dropup-menu" id="dropdownMenu">
                 <li><a class="custom-dropup-item" href="#">Профиль</a></li>
                 <li><div class="custom-dropup-divider"></div></li>
@@ -220,98 +214,56 @@
             </div>
         </div>
     </div>
+
     <!-- MAIN CONTENT -->
     <div class="main-content">
         <div class="container-fluid text-center">
             <h1 class="display-5 fw-normal mt-4 mb-2">Главная</h1>
             <p class="text-muted mb-5">Вы находитесь на сайте, предназначенном для продажи товаров.</p>
 
-            <!-- Полностью автономная горизонтальная сетка карточек -->
+            <!-- ДИНАМИЧЕСКАЯ СЕТКА КАРТОЧЕК ТОВАРОВ ИЗ БАЗЫ ДАННЫХ -->
             <div class="products-grid">
-                <!-- Товар 1 -->
-                <div class="product-col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Товар 1</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title">$ 100</h1>
-                            <ul class="list-unstyled text-center">
-                                <li>10 users included</li>
-                                <li>2 GB of storage</li>
-                                <li>Email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn-outline-primary">Купить</button>
+                {% for product in products %}
+                    <div class="product-col">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>{{ product.name }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <h1 class="card-title pricing-card-title">${{ product.price }}</h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>{{ product.description|default:"Описание отсутствует" }}</li>
+                                </ul>
+                                <button type="button" class="btn-outline-primary">Купить</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Товар 2 -->
-                <div class="product-col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Товар 2</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title">$ 200</h1>
-                            <ul class="list-unstyled text-center">
-                                <li>20 users included</li>
-                                <li>10 GB of storage</li>
-                                <li>Priority email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn-outline-primary">Купить</button>
-                        </div>
+                {% empty %}
+                    <div class="col-12">
+                        <p class="text-muted">В каталоге нет товара. Наполните БД кастомной командой `fill` или через админку.</p>
                     </div>
-                </div>
+                {% endfor %}
+            </div>
 
-                <!-- Товар 3 -->
-                <div class="product-col">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Товар 3</h4>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title">$ 300</h1>
-                            <ul class="list-unstyled text-center">
-                                <li>30 users included</li>
-                                <li>15 GB of storage</li>
-                                <li>Phone and email support</li>
-                                <li>Help center access</li>
-                            </ul>
-                            <button type="button" class="btn-outline-primary">Купить</button>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- /products-grid -->
-        </div> <!-- /container-fluid -->
-    </div> <!-- /main-content -->
+        </div>
+    </div>
 
-    <!-- Скрипт для интерактивного открытия меню пользователя -->
+    <!-- Скрипт для работы дропдауна пользователя -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var btn = document.getElementById('dropdownUser');
-            var menu = document.getElementById('dropdownMenu');
+        const dropdownUser = document.getElementById('dropdownUser');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
-            if (btn && menu) {
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    if (menu.style.display === 'block') {
-                        menu.style.display = 'none';
-                    } else {
-                        menu.style.display = 'block';
-                    }
-                });
-
-                document.addEventListener('click', function (e) {
-                    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-                        menu.style.display = 'none';
-                    }
-                });
+        dropdownUser.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
             }
+        });
+
+        document.addEventListener('click', function() {
+            dropdownMenu.style.display = 'none';
         });
     </script>
 </body>

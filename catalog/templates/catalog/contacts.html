@@ -126,14 +126,16 @@
                     </form>
                 </div>
             </div>
-            <div class="col-text">
+            <div class="col text">
                 <h3 class="h4">Наши контакты</h3>
-                <p class="text-secondary lh-lg mb-4">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                </p>
-                <p class="text-secondary lh-lg">
-                    While these feedback styles cannot be styled with CSS, you can still customize the feedback text through JavaScript.
-                </p>
+
+                {% if contact_data %}
+                    <p class="text-secondary lh-lg mb-2"><strong>Телефон:</strong> {{ contact_data.phone }}</p>
+                    <p class="text-secondary lh-lg mb-2"><strong>Email:</strong> {{ contact_data.email }}</p>
+                    <p class="text-secondary lh-lg"><strong>Адрес:</strong> {{ contact_data.address }}</p>
+                {% else %}
+                    <p class="text-muted">Контактная информация скоро появится.</p>
+                {% endif %}
             </div>
         </div>
     </div>
